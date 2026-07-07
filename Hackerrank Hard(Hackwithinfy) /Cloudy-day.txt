@@ -1,0 +1,84 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+#
+# Complete the 'maximumPeople' function below.
+#
+# The function is expected to return a LONG_INTEGER.
+# The function accepts following parameters:
+#  1. LONG_INTEGER_ARRAY p
+#  2. LONG_INTEGER_ARRAY x
+#  3. LONG_INTEGER_ARRAY y
+#  4. LONG_INTEGER_ARRAY r
+#
+from bisect import bisect_left , bisect_right
+def maximumPeople(p, x, y, r):
+    # Return the maximum number of people that will be in a sunny town after removing exactly one cloud.
+    n = len(x)
+    m = len(y)
+    
+    towns = sorted(zip(x , p))
+    
+    townpos = [t[0] for t in towns]
+    townpopu = [t[1] for t in towns]
+    
+    cover = [0]*n
+    owner = [-1]*n
+    
+    for i in range(m):
+        L = y[i] - r[i]
+        R = y[i] + r[i]
+        
+        l = bisect_left(townpos , L)
+        rr = bisect_right(townpos , R) 
+        
+        for j in range(l , rr):
+            cover[j] += 1
+            owner[j] = i
+    
+    sunny = 0
+    gain = [0]*m
+    
+    for i in range(n):
+        if cover[i]==0:
+            sunny += townpopu[i]
+        
+        elif cover[i] == 1:
+            gain[owner[i]] += townpopu[i]
+    
+    return sunny+max(gain , default=0) 
+        
+    
+    
+    
+    
+    
+    
+    
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    p = list(map(int, input().rstrip().split()))
+
+    x = list(map(int, input().rstrip().split()))
+
+    m = int(input().strip())
+
+    y = list(map(int, input().rstrip().split()))
+
+    r = list(map(int, input().rstrip().split()))
+
+    result = maximumPeople(p, x, y, r)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
