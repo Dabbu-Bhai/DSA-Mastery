@@ -1,0 +1,14 @@
+from collections import Counter
+def beautifulPairs(A, B):
+    # Write your code here
+    a = Counter(A)
+    b = Counter(B)
+    b_pair = 0
+    for val in a:
+        if val in b:
+            b_pair += min(a[val] , b[val])
+    
+    if b_pair == len(A):
+        return b_pair-1
+    else:
+        return b_pair+1
