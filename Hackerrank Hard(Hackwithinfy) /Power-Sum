@@ -1,0 +1,14 @@
+def powerSum(X, N):
+    # Write your code here
+    def solve(total , power , num):
+        val = total - num**power
+        
+        if val == 0:
+            return 1
+        
+        if val < 0:
+            return 0
+        
+        return solve(val , power , num+1) + solve(total , power , num+1)
+    
+    return solve(X , N , 1)
