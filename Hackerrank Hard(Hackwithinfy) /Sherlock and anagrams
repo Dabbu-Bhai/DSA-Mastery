@@ -1,0 +1,25 @@
+from collections import Counter
+def createsubstrs(i , s , ans):
+    if i>= len(s):
+        return
+    
+    temp = []
+    for j in range(i , len(s)):
+        temp.append(s[j])
+        ans.append("".join(sorted(temp)))
+    
+    createsubstrs(i+1 , s , ans)
+                
+
+def sherlockAndAnagrams(s):
+    # Write your code here
+    ans = []
+    createsubstrs(0 , s, ans)
+    
+    mp = Counter(ans)
+    
+    x = 0
+    for i in mp:
+        if mp[i] > 1:
+            x+=(mp[i] * (mp[i]-1))// 2
+    return x
