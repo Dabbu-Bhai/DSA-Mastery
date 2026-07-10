@@ -1,3 +1,4 @@
+Complexity = O(V) + O(E)
 class Solution:
     def dfs(self, adj):
         # code here
