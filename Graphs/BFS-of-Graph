@@ -1,0 +1,21 @@
+class Solution:
+    def bfs(self, adj):
+        # code here
+        q = Queue()
+        
+        vis = [False] * len(adj)
+        ans = [0]
+        q.put(0)
+        vis[0] = True
+        
+        while(not q.empty()):
+            u = q.get()
+            
+            for v in adj[u]:
+                if not vis[v]:
+                    q.put(v)
+                    ans.append(v)
+                    vis[v] = True
+        
+        
+        return ans
