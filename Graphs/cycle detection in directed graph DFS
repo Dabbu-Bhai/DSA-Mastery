@@ -1,0 +1,47 @@
+class Solution {
+  public:
+  
+    vector<bool> vis;
+    vector<bool> inrec;
+  
+    bool dfs(int u , unordered_map<int , vector<int>> &adj){
+        vis[u] = true;
+        inrec[u] = true;
+        
+        for(int v : adj[u]){
+            if(!vis[v] && dfs(v ,adj)){
+                return true;
+                
+                // CHECK IF TRUE IN CURR RECURSION
+            }else if(inrec[v])
+                return true;
+            }
+        
+        inrec[u] = false;
+        
+        return false;
+    }
+    
+  
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        // code here
+        unordered_map<int , vector<int>> adj;
+        
+        for(auto &it : edges){
+            adj[it[0]].push_back(it[1]);
+        }
+        
+        vis.resize(V , false);
+        inrec.resize(V , false);
+        
+        
+        for(int i = 0 ; i<V ; i++){
+            if(!vis[i] && dfs(i , adj)) return true;
+        }
+        
+        return false;
+        
+        
+        
+    }
+};
